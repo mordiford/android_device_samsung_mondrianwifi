@@ -51,6 +51,10 @@ PRODUCT_PACKAGES += \
     libshim_qcopt \
     libxml2
 
+# Snap
+PRODUCT_PACKAGES += \
+    Snap
+
 # Gello
 PRODUCT_PACKAGES += \
     Gello
