@@ -33,6 +33,7 @@
 #include <hardware/camera.h>
 #include <camera/Camera.h>
 #include <camera/CameraParameters.h>
+#include <string>
 
 static android::Mutex gCameraWrapperLock;
 static camera_module_t *gVendorModule = 0;
@@ -53,7 +54,7 @@ static struct hw_module_methods_t camera_module_methods = {
 
 camera_module_t HAL_MODULE_INFO_SYM = {
     .common = {
-         tag: HARDWARE_MODULE_TAG,
+         .tag = HARDWARE_MODULE_TAG,
          .module_api_version = CAMERA_MODULE_API_VERSION_1_0,
          .hal_api_version = HARDWARE_HAL_API_VERSION,
          .id = CAMERA_HARDWARE_MODULE_ID,
@@ -618,3 +619,17 @@ int camera_get_camera_info(int camera_id, struct camera_info *info)
         return 0;
     return gVendorModule->get_camera_info(camera_id, info);
 }
+
+// GraphicBuffer(uint32_t inWidth, uint32_t inHeight, PixelFormat inFormat,
+//               uint32_t inUsage, std::string requestorName = "<Unknown>");
+extern "C" void _ZN7android13GraphicBufferC1EjjijNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEE(
+    uint32_t inWidth, uint32_t inHeight, int inFormat, uint32_t inUsage,
+    std::string requestorName);
+
+extern "C" void _ZN7android13GraphicBufferC1Ejjij(
+    uint32_t inWidth, uint32_t inHeight, int inFormat, uint32_t inUsage) {
+  std::string requestorName = "<Unknown>";
+  _ZN7android13GraphicBufferC1EjjijNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEE(
+      inWidth, inHeight, inFormat, inUsage, requestorName);
+}
+
