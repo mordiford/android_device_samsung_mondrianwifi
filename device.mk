@@ -51,6 +51,10 @@ PRODUCT_PACKAGES += \
     libshim_qcopt \
     libxml2
 
+# DRM
+PRODUCT_PACKAGES += \
+    libshim_wvm
+
 # Snap
 PRODUCT_PACKAGES += \
     Snap
